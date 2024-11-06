@@ -1,5 +1,5 @@
 [project]
-name = "comfyui_image_filters"
+name = "basix_image_filters"
 description = "A handful of image filters for ComfyUI (darken, lighten, levels, saturate, hue)"
 version = "1.0.0"
 license = {file = "LICENSE"}
@@ -10,5 +10,5 @@ Repository = "https://github.com/maludwig/comfyui_image_filters"
 
 [tool.comfy]
 PublisherId = "basix"
-DisplayName = "comfyui_image_filters"
+DisplayName = "basix_image_filters"
 Icon = "icon.png"
