@@ -1,6 +1,6 @@
 import unittest
 import torch
-from comfyui_image_filters.color_enhancer import ColorEnhancer, ColorSpace
+from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
 
 
 class TestHSLEnhancer(unittest.TestCase):
@@ -19,9 +19,7 @@ class TestHSLEnhancer(unittest.TestCase):
         # Define an HSL color: pure red with L=0.5
         hsl_input = torch.tensor([[[[0.0, 1.0, 0.5]]]])  # Shape: (1, 1, 1, 3)
         amount = 0.2
-        expected_hsl = torch.tensor(
-            [[[[0.0, 1.0, 0.7]]]]
-        )  # L should be 0.5 + 0.2 = 0.7
+        expected_hsl = torch.tensor([[[[0.0, 1.0, 0.7]]]])  # L should be 0.5 + 0.2 = 0.7
         lightened_hsl = self.enhancer.lighten(hsl_input, amount)
         self.assertTrue(
             torch.allclose(lightened_hsl, expected_hsl, atol=1e-6),
@@ -85,9 +83,7 @@ class TestHSLEnhancer(unittest.TestCase):
         # Define an HSL color: pure blue with L=0.6
         hsl_input = torch.tensor([[[[0.6667, 1.0, 0.6]]]])  # Shape: (1, 1, 1, 3)
         amount = 0.2
-        expected_hsl = torch.tensor(
-            [[[[0.6667, 1.0, 0.4]]]]
-        )  # L should be 0.6 - 0.2 = 0.4
+        expected_hsl = torch.tensor([[[[0.6667, 1.0, 0.4]]]])  # L should be 0.6 - 0.2 = 0.4
         darkened_hsl = self.enhancer.darken(hsl_input, amount)
         self.assertTrue(
             torch.allclose(darkened_hsl, expected_hsl, atol=1e-4),
@@ -151,9 +147,7 @@ class TestHSLEnhancer(unittest.TestCase):
         # Define an HSL color: pure green with S=0.5
         hsl_input = torch.tensor([[[[1 / 3, 0.5, 0.5]]]])  # Shape: (1, 1, 1, 3)
         amount = 0.3
-        expected_hsl = torch.tensor(
-            [[[[1 / 3, 0.8, 0.5]]]]
-        )  # S should be 0.5 + 0.3 = 0.8
+        expected_hsl = torch.tensor([[[[1 / 3, 0.8, 0.5]]]])  # S should be 0.5 + 0.3 = 0.8
         saturated_hsl = self.enhancer.saturate(hsl_input, amount)
         self.assertTrue(
             torch.allclose(saturated_hsl, expected_hsl, atol=1e-6),
@@ -217,9 +211,7 @@ class TestHSLEnhancer(unittest.TestCase):
         # Define an HSL color: pure cyan with S=0.8
         hsl_input = torch.tensor([[[[0.5, 0.8, 0.5]]]])  # Shape: (1, 1, 1, 3)
         amount = 0.3
-        expected_hsl = torch.tensor(
-            [[[[0.5, 0.5, 0.5]]]]
-        )  # S should be 0.8 - 0.3 = 0.5
+        expected_hsl = torch.tensor([[[[0.5, 0.5, 0.5]]]])  # S should be 0.8 - 0.3 = 0.5
         desaturated_hsl = self.enhancer.desaturate(hsl_input, amount)
         self.assertTrue(
             torch.allclose(desaturated_hsl, expected_hsl, atol=1e-6),
@@ -231,9 +223,7 @@ class TestHSLEnhancer(unittest.TestCase):
         # Define an HSL color with S=0.1
         hsl_input = torch.tensor([[[[0.25, 0.1, 0.5]]]])  # Shape: (1, 1, 1, 3)
         amount = 0.2
-        expected_hsl = torch.tensor(
-            [[[[0.25, 0.0, 0.5]]]]
-        )  # S should be clamped to 0.0
+        expected_hsl = torch.tensor([[[[0.25, 0.0, 0.5]]]])  # S should be clamped to 0.0
         desaturated_hsl = self.enhancer.desaturate(hsl_input, amount)
         self.assertTrue(
             torch.allclose(desaturated_hsl, expected_hsl, atol=1e-6),
@@ -397,9 +387,7 @@ class TestHSLEnhancer(unittest.TestCase):
         """Test shifting hue by a large negative degree value."""
         # Define an HSL color: pure green with H=1/3 (120 degrees)
         hsl_input = torch.tensor([[[[1 / 3, 1.0, 0.5]]]])  # Shape: (1, 1, 1, 3)
-        degrees = (
-            -480.0
-        )  # Equivalent to shifting by -120 degrees twice: 120 - 480 = -360, wraps to 0.0
+        degrees = -480.0  # Equivalent to shifting by -120 degrees twice: 120 - 480 = -360, wraps to 0.0
         expected_hsl = torch.tensor([[[[0.0, 1.0, 0.5]]]])  # H=0.0
         shifted_hsl = self.enhancer.shift_hue(hsl_input, degrees)
         self.assertTrue(
@@ -476,7 +464,6 @@ class TestHSLEnhancer(unittest.TestCase):
             )
         except Exception as e:
             self.fail(f"Shifting hue failed on high-resolution input: {e}")
-
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 from torch import Tensor
 
-from comfyui_image_filters.color_enhancer import ColorEnhancer, ColorSpace, RGBChannels
-from comfyui_image_filters.image_enhancer_node import ImageEnhancerNode
+from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace, RGBChannels
+from basix_image_filters.image_enhancer_node import ImageEnhancerNode
 
 rgb_enhancer = ColorEnhancer(ColorSpace.RGB)
 

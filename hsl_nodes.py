@@ -1,7 +1,7 @@
 from torch import Tensor
 
-from comfyui_image_filters.color_enhancer import ColorEnhancer, ColorSpace
-from comfyui_image_filters.image_enhancer_node import ImageEnhancerNode
+from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
+from basix_image_filters.image_enhancer_node import ImageEnhancerNode
 
 hsl_enhancer = ColorEnhancer(ColorSpace.HSL)
 

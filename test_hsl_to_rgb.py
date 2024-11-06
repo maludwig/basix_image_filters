@@ -2,8 +2,8 @@ import unittest
 
 import torch
 
-from comfyui_image_filters.hsl_to_rgb import hsl_tensor_to_rgb_tensor
-from comfyui_image_filters.rgb_to_hsl import rgb_tensor_to_hsl_tensor
+from basix_image_filters.hsl_to_rgb import hsl_tensor_to_rgb_tensor
+from basix_image_filters.rgb_to_hsl import rgb_tensor_to_hsl_tensor
 
 
 class TestHSLToRGBColorConversion(unittest.TestCase):
@@ -17,8 +17,7 @@ class TestHSLToRGBColorConversion(unittest.TestCase):
         """
         Helper method to assert that two tensors are almost equal.
         """
-        self.assertTrue(torch.allclose(tensor1, tensor2, atol=tol),
-                        msg=f"Tensors are not almost equal.\nTensor1: {tensor1}\nTensor2: {tensor2}")
+        self.assertTrue(torch.allclose(tensor1, tensor2, atol=tol), msg=f"Tensors are not almost equal.\nTensor1: {tensor1}\nTensor2: {tensor2}")
 
     def test_single_pixel_black(self):
         """
@@ -68,19 +67,13 @@ class TestHSLToRGBColorConversion(unittest.TestCase):
         """
         Test HSL to RGB conversion for a batch of single pixels: black, white, red, cyan.
         """
-        hsl = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[0.0, 0.0, 1.0]]],  # White
-            [[[0.0, 1.0, 0.5]]],  # Red
-            [[[0.5, 1.0, 0.5]]]   # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        hsl = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[0.0, 0.0, 1.0]]], [[[0.0, 1.0, 0.5]]], [[[0.5, 1.0, 0.5]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
-        expected_rgb = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[1.0, 1.0, 1.0]]],  # White
-            [[[1.0, 0.0, 0.0]]],  # Red
-            [[[0.0, 1.0, 1.0]]]   # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        expected_rgb = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[1.0, 1.0, 1.0]]], [[[1.0, 0.0, 0.0]]], [[[0.0, 1.0, 1.0]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
         rgb = hsl_tensor_to_rgb_tensor(hsl)
         self.assertTensorAlmostEqual(rgb, expected_rgb)
@@ -133,16 +126,16 @@ class TestHSLToRGBColorConversion(unittest.TestCase):
         - Bottom Right: Red
         """
         hsl = torch.zeros((1, 2, 2, 3))
-        
+
         # Top Left: Black (0, 0, 0)
         hsl[0, 0, 0, :] = torch.tensor([0.0, 0.0, 0.0])
-        
+
         # Top Right: White (0, 0, 1)
         hsl[0, 0, 1, :] = torch.tensor([0.0, 0.0, 1.0])
-        
+
         # Bottom Left: Cyan (0.5, 1, 0.5)
         hsl[0, 1, 0, :] = torch.tensor([0.5, 1.0, 0.5])
-        
+
         # Bottom Right: Red (0, 1, 0.5)
         hsl[0, 1, 1, :] = torch.tensor([0.0, 1.0, 0.5])
 
@@ -207,19 +200,13 @@ class TestHSLToRGBColorConversion(unittest.TestCase):
         """
         Test RGB to HSL conversion for a batch of single pixels: black, white, red, cyan.
         """
-        rgb = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[1.0, 1.0, 1.0]]],  # White
-            [[[1.0, 0.0, 0.0]]],  # Red
-            [[[0.0, 1.0, 1.0]]]   # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        rgb = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[1.0, 1.0, 1.0]]], [[[1.0, 0.0, 0.0]]], [[[0.0, 1.0, 1.0]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
-        expected_hsl = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[0.0, 0.0, 1.0]]],  # White
-            [[[0.0, 1.0, 0.5]]],  # Red
-            [[[0.5, 1.0, 0.5]]]   # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        expected_hsl = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[0.0, 0.0, 1.0]]], [[[0.0, 1.0, 0.5]]], [[[0.5, 1.0, 0.5]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
         hsl = rgb_tensor_to_hsl_tensor(rgb)
         self.assertTensorAlmostEqual(hsl, expected_hsl)
@@ -255,5 +242,6 @@ class TestHSLToRGBColorConversion(unittest.TestCase):
         hsl = rgb_tensor_to_hsl_tensor(rgb)
         self.assertTensorAlmostEqual(hsl, expected_hsl)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

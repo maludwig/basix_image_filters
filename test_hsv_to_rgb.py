@@ -2,15 +2,15 @@ import unittest
 
 import torch
 
-from comfyui_image_filters.hsv_to_rgb import hsv_tensor_to_rgb_tensor
-from comfyui_image_filters.rgb_to_hsl import rgb_tensor_to_hsl_tensor
+from basix_image_filters.hsv_to_rgb import hsv_tensor_to_rgb_tensor
+from basix_image_filters.rgb_to_hsl import rgb_tensor_to_hsl_tensor
 
 import unittest
 
 import torch
 
-from comfyui_image_filters.hsv_to_rgb import hsv_tensor_to_rgb_tensor
-from comfyui_image_filters.rgb_to_hsv import rgb_tensor_to_hsv_tensor
+from basix_image_filters.hsv_to_rgb import hsv_tensor_to_rgb_tensor
+from basix_image_filters.rgb_to_hsv import rgb_tensor_to_hsv_tensor
 
 
 class TestHSVToRGBColorConversion(unittest.TestCase):
@@ -24,8 +24,7 @@ class TestHSVToRGBColorConversion(unittest.TestCase):
         """
         Helper method to assert that two tensors are almost equal.
         """
-        self.assertTrue(torch.allclose(tensor1, tensor2, atol=tol),
-                        msg=f"Tensors are not almost equal.\nTensor1: {tensor1}\nTensor2: {tensor2}")
+        self.assertTrue(torch.allclose(tensor1, tensor2, atol=tol), msg=f"Tensors are not almost equal.\nTensor1: {tensor1}\nTensor2: {tensor2}")
 
     def test_single_pixel_black(self):
         """
@@ -75,19 +74,13 @@ class TestHSVToRGBColorConversion(unittest.TestCase):
         """
         Test HSV to RGB conversion for a batch of single pixels: black, white, red, cyan.
         """
-        hsv = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[0.0, 0.0, 1.0]]],  # White
-            [[[0.0, 1.0, 1.0]]],  # Red
-            [[[0.5, 1.0, 1.0]]]  # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        hsv = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[0.0, 0.0, 1.0]]], [[[0.0, 1.0, 1.0]]], [[[0.5, 1.0, 1.0]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
-        expected_rgb = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[1.0, 1.0, 1.0]]],  # White
-            [[[1.0, 0.0, 0.0]]],  # Red
-            [[[0.0, 1.0, 1.0]]]  # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        expected_rgb = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[1.0, 1.0, 1.0]]], [[[1.0, 0.0, 0.0]]], [[[0.0, 1.0, 1.0]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
         rgb = hsv_tensor_to_rgb_tensor(hsv)
         self.assertTensorAlmostEqual(rgb, expected_rgb)
@@ -214,19 +207,13 @@ class TestHSVToRGBColorConversion(unittest.TestCase):
         """
         Test RGB to HSV conversion for a batch of single pixels: black, white, red, cyan.
         """
-        rgb = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[1.0, 1.0, 1.0]]],  # White
-            [[[1.0, 0.0, 0.0]]],  # Red
-            [[[0.0, 1.0, 1.0]]]  # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        rgb = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[1.0, 1.0, 1.0]]], [[[1.0, 0.0, 0.0]]], [[[0.0, 1.0, 1.0]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
-        expected_hsv = torch.tensor([
-            [[[0.0, 0.0, 0.0]]],  # Black
-            [[[0.0, 0.0, 1.0]]],  # White
-            [[[0.0, 1.0, 1.0]]],  # Red
-            [[[0.5, 1.0, 1.0]]]  # Cyan
-        ])  # Shape: (4, 1, 1, 3)
+        expected_hsv = torch.tensor(
+            [[[[0.0, 0.0, 0.0]]], [[[0.0, 0.0, 1.0]]], [[[0.0, 1.0, 1.0]]], [[[0.5, 1.0, 1.0]]]]  # Black  # White  # Red  # Cyan
+        )  # Shape: (4, 1, 1, 3)
 
         hsv = rgb_tensor_to_hsv_tensor(rgb)
         self.assertTensorAlmostEqual(hsv, expected_hsv)
@@ -263,5 +250,5 @@ class TestHSVToRGBColorConversion(unittest.TestCase):
         self.assertTensorAlmostEqual(hsv, expected_hsv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

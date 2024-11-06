@@ -3,10 +3,7 @@ import torch
 from torch import Tensor
 
 # Assuming the color_enhancer.py is in the same directory or properly installed as a module
-from comfyui_image_filters.color_enhancer import (
-    ColorEnhancer,
-    ColorSpace
-)
+from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
 
 
 class TestColorEnhancer(unittest.TestCase):
@@ -17,26 +14,25 @@ class TestColorEnhancer(unittest.TestCase):
         # Define some common colors in RGB
         self.rgb_black = torch.tensor([[[[0.0, 0.0, 0.0]]]])  # Black
         self.rgb_white = torch.tensor([[[[1.0, 1.0, 1.0]]]])  # White
-        self.rgb_red = torch.tensor([[[[1.0, 0.0, 0.0]]]])    # Red
-        self.rgb_cyan = torch.tensor([[[[0.0, 1.0, 1.0]]]])   # Cyan
+        self.rgb_red = torch.tensor([[[[1.0, 0.0, 0.0]]]])  # Red
+        self.rgb_cyan = torch.tensor([[[[0.0, 1.0, 1.0]]]])  # Cyan
 
         # Define expected HSL and HSV for these colors
         self.hsl_black = torch.tensor([[[[0.0, 0.0, 0.0]]]])  # HSL: (0,0,0)
         self.hsl_white = torch.tensor([[[[0.0, 0.0, 1.0]]]])  # HSL: (0,0,1)
-        self.hsl_red = torch.tensor([[[[0.0, 1.0, 0.5]]]])    # HSL: (0,1,0.5)
-        self.hsl_cyan = torch.tensor([[[[0.5, 1.0, 0.5]]]])   # HSL: (0.5,1,0.5)
+        self.hsl_red = torch.tensor([[[[0.0, 1.0, 0.5]]]])  # HSL: (0,1,0.5)
+        self.hsl_cyan = torch.tensor([[[[0.5, 1.0, 0.5]]]])  # HSL: (0.5,1,0.5)
 
         self.hsv_black = torch.tensor([[[[0.0, 0.0, 0.0]]]])  # HSV: (0,0,0)
         self.hsv_white = torch.tensor([[[[0.0, 0.0, 1.0]]]])  # HSV: (0,0,1)
-        self.hsv_red = torch.tensor([[[[0.0, 1.0, 1.0]]]])    # HSV: (0,1,1)
-        self.hsv_cyan = torch.tensor([[[[0.5, 1.0, 1.0]]]])   # HSV: (0.5,1,1)
+        self.hsv_red = torch.tensor([[[[0.0, 1.0, 1.0]]]])  # HSV: (0,1,1)
+        self.hsv_cyan = torch.tensor([[[[0.5, 1.0, 1.0]]]])  # HSV: (0.5,1,1)
 
     def assertTensorAlmostEqual(self, tensor1: Tensor, tensor2: Tensor, tol=1e-4):
         """
         Helper method to assert that two tensors are almost equal.
         """
-        self.assertTrue(torch.allclose(tensor1, tensor2, atol=tol),
-                        msg=f"Tensors are not almost equal.\nTensor1: {tensor1}\nTensor2: {tensor2}")
+        self.assertTrue(torch.allclose(tensor1, tensor2, atol=tol), msg=f"Tensors are not almost equal.\nTensor1: {tensor1}\nTensor2: {tensor2}")
 
     def test_initialization_valid_color_spaces(self):
         """
@@ -321,7 +317,7 @@ class TestColorEnhancer(unittest.TestCase):
         # For second pixel: (0.05 - 0.0) / (1.0 - 0.0) = 0.05, gamma=1.0 => 0.05
         # No clamping needed here, but let's set gamma=10 to push 0.95^10 and 0.05^10
         adjusted_hsl = enhancer.adjust_levels(hsl, shadows=0.0, gamma=10.0, highlights=1.0, channel=2)
-        expected_hsl = torch.tensor([[[[0.0, 0.5, 0.95 ** 10], [0.0, 0.5, 0.05 ** 10]]]])
+        expected_hsl = torch.tensor([[[[0.0, 0.5, 0.95**10], [0.0, 0.5, 0.05**10]]]])
         expected_hsl = torch.clamp(expected_hsl, 0.0, 1.0)
         self.assertTensorAlmostEqual(adjusted_hsl, expected_hsl)
 
@@ -333,7 +329,7 @@ class TestColorEnhancer(unittest.TestCase):
 
         # Hue near the upper boundary
         hsl = torch.tensor([[[[0.9, 0.5, 0.5]]]])  # Hue = 0.9 (324 degrees)
-        shifted_hsl = enhancer.shift_hue(hsl, 90.0)   # Shift by +90 degrees -> 324 + 90 = 414 % 360 = 54 degrees -> 54/360=0.15
+        shifted_hsl = enhancer.shift_hue(hsl, 90.0)  # Shift by +90 degrees -> 324 + 90 = 414 % 360 = 54 degrees -> 54/360=0.15
         expected_hsl = torch.tensor([[[[(0.9 + 90.0 / 360.0) % 1.0, 0.5, 0.5]]]])
         self.assertTensorAlmostEqual(shifted_hsl, expected_hsl)
 
@@ -341,10 +337,7 @@ class TestColorEnhancer(unittest.TestCase):
         """
         Test that shifting hue by 0 degrees results in no change.
         """
-        for color_space, hsl, hsv in [
-            (ColorSpace.HSL, self.hsl_red, self.hsv_red),
-            (ColorSpace.HSV, self.hsv_cyan, self.hsv_cyan)
-        ]:
+        for color_space, hsl, hsv in [(ColorSpace.HSL, self.hsl_red, self.hsv_red), (ColorSpace.HSV, self.hsv_cyan, self.hsv_cyan)]:
             enhancer = ColorEnhancer(color_space)
             shifted = enhancer.shift_hue(hsl if color_space == ColorSpace.HSL else hsv, 0.0)
             expected = hsl.clone() if color_space == ColorSpace.HSL else hsv.clone()
@@ -405,12 +398,9 @@ class TestColorEnhancer(unittest.TestCase):
         enhancer = ColorEnhancer(ColorSpace.HSL)
 
         # Define a 2x2 HSL image
-        hsl_image = torch.tensor([
-            [
-                [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]],  # Top row: Black, White
-                [[0.5, 1.0, 0.5], [0.0, 1.0, 0.5]]   # Bottom row: Cyan, Red
-            ]
-        ])  # Shape: (1, 2, 2, 3)
+        hsl_image = torch.tensor(
+            [[[[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]], [[0.5, 1.0, 0.5], [0.0, 1.0, 0.5]]]]  # Top row: Black, White  # Bottom row: Cyan, Red
+        )  # Shape: (1, 2, 2, 3)
 
         # Lighten by 0.1
         lightened = enhancer.lighten(hsl_image, 0.1)
@@ -439,12 +429,9 @@ class TestColorEnhancer(unittest.TestCase):
         enhancer = ColorEnhancer(ColorSpace.HSV)
 
         # Define a 2x2 HSV image
-        hsv_image = torch.tensor([
-            [
-                [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]],  # Top row: Black, White
-                [[0.5, 1.0, 1.0], [0.0, 1.0, 1.0]]   # Bottom row: Cyan, Red
-            ]
-        ])  # Shape: (1, 2, 2, 3)
+        hsv_image = torch.tensor(
+            [[[[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]], [[0.5, 1.0, 1.0], [0.0, 1.0, 1.0]]]]  # Top row: Black, White  # Bottom row: Cyan, Red
+        )  # Shape: (1, 2, 2, 3)
 
         # Darken by 0.2
         darkened = enhancer.darken(hsv_image, 0.2)
@@ -528,11 +515,7 @@ class TestColorEnhancer(unittest.TestCase):
         enhancer = ColorEnhancer(ColorSpace.HSL)
 
         # Create an image with varying lightness
-        hsl = torch.tensor([
-            [
-                [[0.0, 0.5, 0.0], [0.0, 0.5, 0.5], [0.0, 0.5, 1.0]]
-            ]
-        ])  # Shape: (1, 1, 3, 3)
+        hsl = torch.tensor([[[[0.0, 0.5, 0.0], [0.0, 0.5, 0.5], [0.0, 0.5, 1.0]]]])  # Shape: (1, 1, 3, 3)
 
         # Adjust levels with shadows=0.0, gamma=1.0, highlights=1.0 (no change)
         adjusted = enhancer.adjust_levels(hsl, shadows=0.0, gamma=1.0, highlights=1.0, channel=2)
@@ -585,5 +568,5 @@ class TestColorEnhancer(unittest.TestCase):
             self.fail(f"ColorEnhancer failed on large image with exception: {e}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

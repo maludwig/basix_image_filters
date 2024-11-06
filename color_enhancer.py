@@ -1,10 +1,10 @@
 import torch
 from torch import Tensor
 from enum import Enum
-from comfyui_image_filters.rgb_to_hsl import rgb_tensor_to_hsl_tensor
-from comfyui_image_filters.hsl_to_rgb import hsl_tensor_to_rgb_tensor
-from comfyui_image_filters.rgb_to_hsv import rgb_tensor_to_hsv_tensor
-from comfyui_image_filters.hsv_to_rgb import hsv_tensor_to_rgb_tensor
+from basix_image_filters.rgb_to_hsl import rgb_tensor_to_hsl_tensor
+from basix_image_filters.hsl_to_rgb import hsl_tensor_to_rgb_tensor
+from basix_image_filters.rgb_to_hsv import rgb_tensor_to_hsv_tensor
+from basix_image_filters.hsv_to_rgb import hsv_tensor_to_rgb_tensor
 
 
 class ColorSpace(Enum):
