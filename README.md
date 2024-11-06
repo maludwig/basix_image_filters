@@ -17,6 +17,17 @@ and "Open in MaskEditor" to create a mask.
 On Windows, Shift+Click-and-drag to zoom in and out, and Ctrl+click-and-drag to move the mask.
 On OSX, try it out and let me know. I'm not rich enough to buy Apple hardware. haha.
 
+## HSL vs HSV
+
+![HSL vs HSV](docs/hsl_vs_hsv.png)
+
+HSV is best when you want to adjust the brightness of the color, rather than the lightness of the color. 
+For an intuitive example, if you have green, in HSV, if you brighten it, you will get "bright green". In HSL, if you lighten it, you will get "light green" (closer to white).
+
+For example, in HSL, a lightness value of 0.5 will make the image 50% gray.
+In HSV, a value of 0.5 will make the image 50% of the original color. This is very useful for adjusting the brightness of a color, rather than the brightness of the image.
+In HSV, if you make green brighter, it still remains green. In HSL, if you make green brighter, it becomes white.
+
 ### HSL Nodes
 
 The HSL nodes are designed to be simple and easy to use.
@@ -53,7 +64,7 @@ Options:
 
 #### Lighten (HSL)
 
-Lightens the image.
+Lightens the image. Red will become "light red" (pink), rather than "bright red".
 
 Options:
 - "factor": The amount to lighten the image. Shifts the lightness value towards white, a value of 0.5 will adjust the image so that pure black is 50% gray. A value of 1 will make the image completely white. Negative values will darken the image.
@@ -73,6 +84,62 @@ Options:
 - "factor": The amount to desaturate the image. A value of 0 will leave the image unchanged. A value of 1 will completely desaturate the image. Negative values will saturate the image.
 
 #### Rotate Hue (HSL)
+
+Rotates the hue of the image. Imagine a color wheel, with red at 0, green at 120, and blue at 240. This node will rotate the hue of the image.
+This represents a color wheel of light. With red+blue being the complimentary color to green, this means that with a rotation of 180 degrees, red will become cyan, and blue will become yellow.
+This is a very powerful tool for color correction, and can be used to create a wide variety of effects.
+It is extremely useful if a model can do X, but it can only do X with a certain color. 
+This node can be used to change the color of the image to match the color that the model is trained on.
+For example, if a LoRA can do green shirts really well, but struggles to do red shirts, you can rotate the hue of the image from green to red, and the model will be able to do red shirts.
+Best used with a mask, since otherwise it will also rotate the colors of the person wearing the shirt. This may not be necessary, since some models are able to do odd colors of skin,
+
+Options:
+- "degrees": The amount to rotate the hue of the image. A value of 0 will leave the image unchanged. A value of 180 will rotate the hue 180 degrees. Negative values will rotate the hue in the opposite direction.
+
+### HSV Nodes
+
+HSV is best when you want to adjust the brightness of the COLOR, rather than the lightness of the image. For example, in HSL, a lightness value of 0.5 will make the image 50% gray.
+In HSV, a value of 0.5 will make the image 50% of the original color. This is very useful for adjusting the brightness of a color, rather than the brightness of the image.
+In HSV, if you make green brighter, it still remains green. In HSL, if you make green brighter, it becomes white.
+
+#### Levels (HSV)
+
+Similar to the Photoshop Levels slider, this node allows you to adjust the levels of the image.
+
+Options:
+- "shadows": Any lightness value below this will be clipped to black. (0 - 1)
+- "midtones": Applies a gamma correction to the midtones. Values above 1 will darken the image, values below 1 will lighten the image. (0 - 100)
+- "highlights": Any lightness value above this will be clipped to white. (0 - 1)
+
+#### Darken (HSV)
+
+Darkens the image.
+
+Options:
+- "factor": The amount to darken the image. Shifts the lightness value towards black, a value of 0.5 will adjust the image so that pure white is 50% gray. A value of 1 will make the image completely black. Negative values will lighten the image.
+
+#### Brighten (HSV)
+
+Brightens the image. Red will become "bright red", rather than "light red".
+
+Options:
+- "factor": The amount to brighten the image. Shifts the brightness value towards white, a value of 0.5 will adjust the image so that pure black is 50% gray. A value of 1 will make the image as bright as possible, while preserving color hue. Negative values will darken the image.
+
+#### Saturate (HSV)
+
+Saturates the image (adds color).
+
+Options:
+- "factor": The amount to saturate the image. A value of 0 will leave the image unchanged. A value of 1 will completely saturate the image. Negative values will desaturate the image.
+
+#### Desaturate (HSV)
+
+Desaturates the image (removes color).
+
+Options:
+- "factor": The amount to desaturate the image. A value of 0 will leave the image unchanged. A value of 1 will completely desaturate the image. Negative values will saturate the image.
+
+#### Rotate Hue (HSV)
 
 Rotates the hue of the image. Imagine a color wheel, with red at 0, green at 120, and blue at 240. This node will rotate the hue of the image.
 This represents a color wheel of light. With red+blue being the complimentary color to green, this means that with a rotation of 180 degrees, red will become cyan, and blue will become yellow.
