@@ -9,6 +9,6 @@ Repository = "https://github.com/maludwig/comfyui_image_filters"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "basix"
 DisplayName = "comfyui_image_filters"
 Icon = "icon.png"
