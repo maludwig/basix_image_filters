@@ -1,7 +1,7 @@
 [project]
 name = "basix_image_filters"
 description = "A handful of image filters for ComfyUI (darken, lighten, levels, saturate, hue)"
-version = "1.0.2"
+version = "1.0.3"
 license = {file = "LICENSE"}
 
 [project.urls]
