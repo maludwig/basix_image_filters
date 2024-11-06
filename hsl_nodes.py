@@ -1,15 +1,15 @@
 from torch import Tensor
 
 from comfyui_image_filters.color_enhancer import ColorEnhancer, ColorSpace
-from comfyui_image_filters.image_enhancer_node import ImageEnhancer
+from comfyui_image_filters.image_enhancer_node import ImageEnhancerNode
 
 hsl_enhancer = ColorEnhancer(ColorSpace.HSL)
 
 
-class HSLLevelsNode(ImageEnhancer):
+class HSLLevelsNode(ImageEnhancerNode):
     @classmethod
     def INPUT_TYPES(cls):
-        enhancer_inputs = ImageEnhancer.INPUT_TYPES()
+        enhancer_inputs = ImageEnhancerNode.INPUT_TYPES()
         enhancer_inputs["required"]["shadows"] = ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1.0, "step": 0.1})
         enhancer_inputs["required"]["midtones"] = ("FLOAT", {"default": 1.0, "min": 0.0, "max": 100.0, "step": 0.1})
         enhancer_inputs["required"]["highlights"] = ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.1})
@@ -28,10 +28,10 @@ class HSLLevelsNode(ImageEnhancer):
     UI_NAME = "Levels (HSL)"
 
 
-class HSLRotateHueNode(ImageEnhancer):
+class HSLRotateHueNode(ImageEnhancerNode):
     @classmethod
     def INPUT_TYPES(cls):
-        enhancer_inputs = ImageEnhancer.INPUT_TYPES()
+        enhancer_inputs = ImageEnhancerNode.INPUT_TYPES()
         enhancer_inputs["required"]["degrees"] = ("FLOAT", {"default": 15.0, "min": -360, "max": 360, "step": 5})
         return enhancer_inputs
 
@@ -45,10 +45,10 @@ class HSLRotateHueNode(ImageEnhancer):
     UI_NAME = "Rotate Hue (HSL)"
 
 
-class HSLDarkenImageNode(ImageEnhancer):
+class HSLDarkenImageNodeNode(ImageEnhancerNode):
     @classmethod
     def INPUT_TYPES(cls):
-        enhancer_inputs = ImageEnhancer.INPUT_TYPES()
+        enhancer_inputs = ImageEnhancerNode.INPUT_TYPES()
         enhancer_inputs["required"]["factor"] = ("FLOAT", {"default": 0.5, "min": -1.0, "max": 1.0, "step": 0.1})
         return enhancer_inputs
 
@@ -62,10 +62,10 @@ class HSLDarkenImageNode(ImageEnhancer):
     UI_NAME = "Darken (HSL)"
 
 
-class HSLLightenImageNode(ImageEnhancer):
+class HSLLightenImageNodeNode(ImageEnhancerNode):
     @classmethod
     def INPUT_TYPES(cls):
-        enhancer_inputs = ImageEnhancer.INPUT_TYPES()
+        enhancer_inputs = ImageEnhancerNode.INPUT_TYPES()
         enhancer_inputs["required"]["factor"] = ("FLOAT", {"default": 0.5, "min": -1.0, "max": 1.0, "step": 0.1})
         return enhancer_inputs
 
@@ -79,10 +79,10 @@ class HSLLightenImageNode(ImageEnhancer):
     UI_NAME = "Lighten (HSL)"
 
 
-class HSLSaturateImageNode(ImageEnhancer):
+class HSLSaturateImageNodeNode(ImageEnhancerNode):
     @classmethod
     def INPUT_TYPES(cls):
-        enhancer_inputs = ImageEnhancer.INPUT_TYPES()
+        enhancer_inputs = ImageEnhancerNode.INPUT_TYPES()
         enhancer_inputs["required"]["factor"] = ("FLOAT", {"default": 0.5, "min": -1.0, "max": 1.0, "step": 0.1})
         return enhancer_inputs
 
@@ -96,10 +96,10 @@ class HSLSaturateImageNode(ImageEnhancer):
     UI_NAME = "Saturate (HSL)"
 
 
-class HSLDesaturateImageNode(ImageEnhancer):
+class HSLDesaturateImageNodeNode(ImageEnhancerNode):
     @classmethod
     def INPUT_TYPES(cls):
-        enhancer_inputs = ImageEnhancer.INPUT_TYPES()
+        enhancer_inputs = ImageEnhancerNode.INPUT_TYPES()
         enhancer_inputs["required"]["factor"] = ("FLOAT", {"default": 0.5, "min": -1.0, "max": 1.0, "step": 0.1})
         return enhancer_inputs
 
@@ -114,4 +114,4 @@ class HSLDesaturateImageNode(ImageEnhancer):
 
 
 # A dictionary that contains all nodes you want to export with their names
-HSL_NODES = [HSLLevelsNode, HSLRotateHueNode, HSLDarkenImageNode, HSLLightenImageNode, HSLSaturateImageNode, HSLDesaturateImageNode]
+HSL_NODES = [HSLLevelsNode, HSLRotateHueNode, HSLDarkenImageNodeNode, HSLLightenImageNodeNode, HSLSaturateImageNodeNode, HSLDesaturateImageNodeNode]
