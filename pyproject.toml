@@ -1,0 +1,14 @@
+[project]
+name = "comfyui_image_filters"
+description = "A handful of image filters for ComfyUI (darken, lighten, levels, saturate, hue)"
+version = "1.0.0"
+license = {file = "LICENSE"}
+
+[project.urls]
+Repository = "https://github.com/maludwig/comfyui_image_filters"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "comfyui_image_filters"
+Icon = "icon.png"
