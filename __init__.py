@@ -1,6 +1,6 @@
-from basix_image_filters.hsl_nodes import HSL_NODES
-from basix_image_filters.hsv_nodes import HSV_NODES
-from basix_image_filters.rgb_nodes import RGB_NODES
+from custom_nodes.basix_image_filters.hsl_nodes import HSL_NODES
+from custom_nodes.basix_image_filters.hsv_nodes import HSV_NODES
+from custom_nodes.basix_image_filters.rgb_nodes import RGB_NODES
 
 NODE_CLASS_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS = {}

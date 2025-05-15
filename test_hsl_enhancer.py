@@ -1,6 +1,6 @@
 import unittest
 import torch
-from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
+from custom_nodes.basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
 
 
 class TestHSLEnhancer(unittest.TestCase):

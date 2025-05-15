@@ -2,7 +2,7 @@ import unittest
 
 import torch
 
-from basix_image_filters.rgb_to_hsv import rgb_tensor_to_hsv_tensor
+from custom_nodes.basix_image_filters.rgb_to_hsv import rgb_tensor_to_hsv_tensor
 
 
 class TestRgbToHsvConversion(unittest.TestCase):

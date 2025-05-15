@@ -2,8 +2,7 @@ import unittest
 import torch
 from torch import Tensor
 
-# Assuming the color_enhancer.py is in the same directory or properly installed as a module
-from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
+from custom_nodes.basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
 
 
 class TestColorEnhancer(unittest.TestCase):

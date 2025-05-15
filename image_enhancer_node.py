@@ -3,7 +3,7 @@ from typing import Optional
 import torch
 from torch import Tensor
 
-from basix_image_filters.filter_util import composite_by_mask
+from custom_nodes.basix_image_filters.filter_util import composite_by_mask
 
 
 def as_list(image: Tensor | list[Tensor] | None) -> list[Tensor] | None:

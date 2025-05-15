@@ -1,7 +1,7 @@
 from torch import Tensor
 
-from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
-from basix_image_filters.image_enhancer_node import ImageEnhancerNode
+from custom_nodes.basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace
+from custom_nodes.basix_image_filters.image_enhancer_node import ImageEnhancerNode
 
 hsv_enhancer = ColorEnhancer(ColorSpace.HSV)
 

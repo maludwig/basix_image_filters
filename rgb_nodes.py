@@ -1,7 +1,7 @@
 from torch import Tensor
 
-from basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace, RGBChannels
-from basix_image_filters.image_enhancer_node import ImageEnhancerNode
+from custom_nodes.basix_image_filters.color_enhancer import ColorEnhancer, ColorSpace, RGBChannels
+from custom_nodes.basix_image_filters.image_enhancer_node import ImageEnhancerNode
 
 rgb_enhancer = ColorEnhancer(ColorSpace.RGB)
 
