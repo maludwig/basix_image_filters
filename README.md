@@ -39,7 +39,7 @@ For example, you have a picture of a green hill with a dark storm. If you want t
 If you want the storm to be darker, you can mask out the sky. It's kind of annoying to draw two masks, so
 you can use the same mask, and just change the masked_area option to toggle between grass and sky.
 
-![Masking Workflow](docs\workflows\mask_workflow.png)
+![Masking Workflow](docs/workflows/mask_workflow.png)
 
 ### HSL Nodes
 
@@ -55,7 +55,7 @@ Options:
 
 For example, you want a spooky haunted house that's glowing red. But whenever you put "red" in the prompt, the house is painted red. You want a house that's dark,
 you don't want a red house, you want a red glow. But you can turn down the blue and green, and turn up the red.
-![Levels (RGB) Workflow](docs\workflows\levels_rgb_workflow.png)
+![Levels (RGB) Workflow](docs/workflows/levels_rgb_workflow.png)
 
 
 #### Levels (HSL)
@@ -69,7 +69,7 @@ Options:
 
 For example, you want a dark landscape, you want it to be green, but stormy. The model can't quite get the lighting on the grass right.
 
-- ![Levels (HSL) Workflow](docs\workflows\levels_hsl_workflow.png)
+- ![Levels (HSL) Workflow](docs/workflows/levels_hsl_workflow.png)
 
 #### Darken (HSL)
 
@@ -80,7 +80,7 @@ Options:
 - "factor": The amount to darken the image. Shifts the lightness value towards black, a value of 0.5 will adjust the image so that pure white is 50% gray. A value of 1 will make the image completely black. Negative values will lighten the image.
 
 For example, you want a dark dungeon corridor, but the model always wants it to be SO BRIGHT.
-![Darken (HSL) Workflow](docs\workflows\darken_hsl_workflow.png)
+![Darken (HSL) Workflow](docs/workflows/darken_hsl_workflow.png)
 
 #### Lighten (HSL)
 
@@ -90,7 +90,7 @@ Options:
 - "factor": The amount to lighten the image. Shifts the lightness value towards white, a value of 0.5 will adjust the image so that pure black is 50% gray. A value of 1 will make the image completely white. Negative values will darken the image.
 
 For example, you want a scorching bright desert, but the model LOVES shadows. You don't mind shadows, but they shouldn't be pitch black.
-![Lighten (HSL) Workflow](docs\workflows\lighten_hsl_workflow.png)
+![Lighten (HSL) Workflow](docs/workflows/lighten_hsl_workflow.png)
 
 #### Saturate (HSL)
 
@@ -100,7 +100,7 @@ Options:
 - "factor": The amount to saturate the image. A value of 0 will leave the image unchanged. A value of 1 will completely saturate the image. Negative values will desaturate the image.
 
 For example, you want a girl riding through Hobbiton, it's so verdant and lush and green there, and the model wants to go for a different art style.
-![Saturate (HSL) Workflow](docs\workflows\saturate_hsl_workflow.png)
+![Saturate (HSL) Workflow](docs/workflows/saturate_hsl_workflow.png)
 
 #### Desaturate (HSL)
 
@@ -111,7 +111,7 @@ Options:
 
 For example, you want a girl sitting like a lump in Hobbiton during the Scouring of the Shire, but the model only knows the Shire from the movies,
 because the model didn't read the books. So it makes a lush green Hobbiton, but you want it to be a bit more desaturated, to match the mood.
-![Saturate (HSL) Workflow](docs\workflows\desaturate_hsl_workflow.png)
+![Saturate (HSL) Workflow](docs/workflows/desaturate_hsl_workflow.png)
 
 #### Rotate Hue (HSL)
 
@@ -127,7 +127,7 @@ Options:
 - "degrees": The amount to rotate the hue of the image. A value of 0 will leave the image unchanged. A value of 180 will rotate the hue 180 degrees. Negative values will rotate the hue in the opposite direction.
 
 For example, you want a universe in a bottle, but when you want a YELLOW universe in the bottle, the model ALWAYS just generates HONEY. NO! You want a UNIVERSE. IN A BOTTLE! YELLOW!
-![Rotate Hue (HSL) Workflow](docs\workflows\hue_hsl_workflow.png)
+![Rotate Hue (HSL) Workflow](docs/workflows/hue_hsl_workflow.png)
 
 ### HSV Nodes
 
@@ -147,7 +147,7 @@ Options:
 For example, you want a glowing spooky haunted house in the dead of the night, but the model always wants there to be a well lit mystery light source always from everywhere.
 The reason you want to use HSV, is because you don't want to desaturate the image, you want to make it darker, but you want the color to remain the same.
 
-![Levels (HSV) Workflow](docs\workflows\levels_hsv_workflow.png)
+![Levels (HSV) Workflow](docs/workflows/levels_hsv_workflow.png)
 
 #### Darken (HSV)
 
@@ -199,3 +199,9 @@ Options:
 - "degrees": The amount to rotate the hue of the image. A value of 0 will leave the image unchanged. A value of 180 will rotate the hue 180 degrees. Negative values will rotate the hue in the opposite direction.
 
 Same uses cases as HSL Rotate Hue, but...honestly I think this might be the exact same thing. Use this if you are a fan of HSV over HSL!
+
+#### Test Workflow
+
+This workflow shows every single node, in both masked and unmasked mode.
+
+![Test Workflow](docs/workflows/image_filter_test_workflow.png)
