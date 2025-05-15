@@ -8,3 +8,5 @@
 /dataSources.local.xml
 /.idea/
 /__pycache__/
+
+.DS_Store
